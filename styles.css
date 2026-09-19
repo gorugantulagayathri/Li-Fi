@@ -1,0 +1,309 @@
+/* ==========================================================================
+   LuminaLanes - Dynamic Li-Fi Beam Scheduling & Load Balancing Digital Twin
+   Custom Stylesheet & Design Tokens
+   ========================================================================== */
+
+:root {
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* Light Theme (Default Library Aesthetic) */
+  --bg-app: #f1f5f9;
+  --bg-card: rgba(255, 255, 255, 0.92);
+  --bg-card-hover: #ffffff;
+  --bg-toolbar: rgba(255, 255, 255, 0.88);
+  --border-app: #cbd5e1;
+  --border-focus: #3b82f6;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --text-sub: #475569;
+  
+  --canvas-bg: #f8fafc;
+  --canvas-grid: #e2e8f0;
+  --canvas-lane: #eef2f6;
+  --canvas-lane-border: #cbd5e1;
+  --canvas-table: #e2e8f0;
+  --canvas-table-border: #94a3b8;
+  --canvas-bookshelf: #334155;
+  --canvas-bookshelf-border: #1e293b;
+
+  /* Optical Colors */
+  --beam-green: #22c55e;
+  --beam-green-glow: rgba(34, 197, 94, 0.45);
+  --beam-orange: #f97316;
+  --beam-orange-glow: rgba(249, 115, 22, 0.55);
+  --beam-red: #ef4444;
+  --beam-red-glow: rgba(239, 68, 68, 0.55);
+  --ap-blue: #2563eb;
+  --ap-blue-glow: rgba(37, 99, 235, 0.35);
+  --warn-zone-fill: rgba(251, 191, 36, 0.22);
+  --warn-zone-stroke: #f59e0b;
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --shadow-glow: 0 0 25px rgba(37, 99, 235, 0.25);
+}
+
+.dark {
+  /* Dark Theme (Futuristic Optical Cyber-Physical Lab) */
+  --bg-app: #090d16;
+  --bg-card: rgba(15, 23, 42, 0.88);
+  --bg-card-hover: rgba(30, 41, 59, 0.95);
+  --bg-toolbar: rgba(15, 23, 42, 0.92);
+  --border-app: #1e293b;
+  --border-focus: #60a5fa;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-sub: #cbd5e1;
+
+  --canvas-bg: #0b1120;
+  --canvas-grid: #172033;
+  --canvas-lane: #111827;
+  --canvas-lane-border: #1f293d;
+  --canvas-table: #1e293b;
+  --canvas-table-border: #334155;
+  --canvas-bookshelf: #1c1917;
+  --canvas-bookshelf-border: #44403c;
+
+  --beam-green: #4ade80;
+  --beam-green-glow: rgba(74, 222, 128, 0.6);
+  --beam-orange: #fb923c;
+  --beam-orange-glow: rgba(251, 146, 60, 0.7);
+  --beam-red: #f87171;
+  --beam-red-glow: rgba(248, 113, 113, 0.7);
+  --ap-blue: #3b82f6;
+  --ap-blue-glow: rgba(59, 130, 246, 0.5);
+  --warn-zone-fill: rgba(245, 158, 11, 0.28);
+  --warn-zone-stroke: #fbbf24;
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 20px -3px rgba(0, 0, 0, 0.6);
+  --shadow-glow: 0 0 35px rgba(59, 130, 246, 0.35);
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  transition: background-color 0.25s ease, color 0.25s ease;
+  overflow-x: hidden;
+}
+
+/* Glassmorphic Container */
+.glass-panel {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-app);
+}
+
+.glass-toolbar {
+  background: var(--bg-toolbar);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-app);
+}
+
+/* Canvas Styling */
+.simulation-canvas-wrapper {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-app);
+  background-color: var(--canvas-bg);
+}
+
+canvas#simCanvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1000 / 800;
+  cursor: crosshair;
+}
+
+/* Pulse Keyframes */
+@keyframes opticalPulse {
+  0% { transform: scale(1); opacity: 0.85; }
+  50% { transform: scale(1.08); opacity: 1; filter: drop-shadow(0 0 10px var(--beam-green-glow)); }
+  100% { transform: scale(1); opacity: 0.85; }
+}
+
+@keyframes threatFlicker {
+  0%, 100% { opacity: 1; filter: drop-shadow(0 0 12px var(--beam-orange-glow)); }
+  50% { opacity: 0.6; filter: drop-shadow(0 0 4px var(--beam-orange)); }
+}
+
+@keyframes laserShimmer {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Interactive Navigation Tabs */
+.nav-tab-btn {
+  position: relative;
+  transition: all 0.2s ease-in-out;
+}
+
+.nav-tab-btn.active {
+  color: #3b82f6;
+  font-weight: 600;
+}
+
+.nav-tab-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2.5px;
+  background: linear-gradient(90deg, #3b82f6, #60a5fa);
+  border-radius: 9999px;
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.6);
+}
+
+/* Custom Styled Range Sliders */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: #cbd5e1;
+  height: 6px;
+  border-radius: 4px;
+  outline: none;
+}
+
+.dark input[type="range"] {
+  background: #334155;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #2563eb;
+  cursor: pointer;
+  box-shadow: 0 0 6px rgba(37, 99, 235, 0.6);
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  background: #1d4ed8;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #334155;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* Event Log Feed */
+.event-log-container {
+  max-height: 240px;
+  overflow-y: auto;
+  font-family: var(--font-mono);
+}
+
+.log-entry {
+  border-left: 3px solid transparent;
+  transition: background 0.15s ease;
+}
+
+.log-entry.handover-proactive {
+  border-left-color: #f97316;
+  background: rgba(249, 115, 22, 0.08);
+}
+
+.log-entry.load-balance {
+  border-left-color: #3b82f6;
+  background: rgba(59, 130, 246, 0.08);
+}
+
+.log-entry.drop-failure {
+  border-left-color: #ef4444;
+  background: rgba(239, 68, 68, 0.08);
+}
+
+.log-entry.system-info {
+  border-left-color: #10b981;
+  background: rgba(16, 185, 129, 0.08);
+}
+
+/* Tooltip on Canvas */
+#canvasTooltip {
+  position: absolute;
+  pointer-events: none;
+  z-index: 50;
+  transition: opacity 0.1s ease;
+  font-family: var(--font-mono);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Feature Badges */
+.badge-lifi-green {
+  background-color: rgba(34, 197, 94, 0.15);
+  color: #16a34a;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.dark .badge-lifi-green {
+  background-color: rgba(34, 197, 94, 0.2);
+  color: #4ade80;
+  border: 1px solid rgba(74, 222, 128, 0.4);
+}
+
+.badge-lifi-orange {
+  background-color: rgba(249, 115, 22, 0.15);
+  color: #ea580c;
+  border: 1px solid rgba(249, 115, 22, 0.3);
+}
+
+.dark .badge-lifi-orange {
+  background-color: rgba(249, 115, 22, 0.2);
+  color: #fb923c;
+  border: 1px solid rgba(251, 146, 60, 0.4);
+}
+
+.badge-lifi-red {
+  background-color: rgba(239, 68, 68, 0.15);
+  color: #dc2626;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.dark .badge-lifi-red {
+  background-color: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+  border: 1px solid rgba(248, 113, 113, 0.4);
+}
+
+/* Card Hover Elevation */
+.hover-elevate {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hover-elevate:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
